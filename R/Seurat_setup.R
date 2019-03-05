@@ -129,7 +129,7 @@ dev.off()
 GC()
 
 system.time({
-        object %<>% RunTSNE(reduction.use = "pca", dims.use = 1:30, do.fast = TRUE) %>%
+        object %<>% #RunTSNE(reduction.use = "pca", dims.use = 1:30, do.fast = TRUE) %>%
                 FindClusters(reduction.type = "pca", resolution = 0.6, dims.use = 1:30,
                              save.SNN = TRUE, n.start = 10, nn.eps = 0.5,
                              force.recalc = TRUE, print.output = FALSE)
@@ -151,8 +151,6 @@ g <- TSNEPlot.1(object = object, do.label = F, group.by = "ident",
         ggtitle("Tsne plot of all clusters")+
         theme(plot.title = element_text(hjust = 0.5,size = 18, face = "bold")) 
 
-jpeg(paste0(path,"/TSNEplot~.jpeg"), units="in", width=10, height=7,res=600)
-print(g)
-dev.off()
+
 
 save(object, file = "data/zebrafishEC_1_20190212.Rda")

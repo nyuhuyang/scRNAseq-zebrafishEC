@@ -43,3 +43,20 @@ for(i in 1:length(marker.list)){
         dev.off()
         print(paste0(i,":",length(marker.list)))
 }
+
+
+# change labels
+system.time({
+        object %<>% FindClusters(reduction.type = "pca", resolution = 1.2, dims.use = 1:30,
+                             save.SNN = TRUE, n.start = 10, nn.eps = 0.5,
+                             force.recalc = TRUE, print.output = FALSE)
+})
+
+TSNEPlot(object, do.label = T)
+idents <- as.data.frame(table(object@ident))
+(old.ident.ids <- idents$Var1)
+new.cluster.ids <- c(10,2,4,1,9,7,7,6,2,10,3,5,13,8,15,16,17,18, ,, , )
+old.ident.ids <-    c(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
+object@ident <- plyr::mapvalues(x = object@ident,
+                                from = old.ident.ids,
+                                to = new.cluster.ids)
